@@ -1,7 +1,18 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
+import { Inter, Source_Code_Pro } from "next/font/google";
 
+import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
+import { Providers } from "@/components/utilities/providers";
+import { HamburgerButton } from "@/components/hamburger-button";
+import { BackButton } from "@/components/nav-back-button";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const source_code_pro = Source_Code_Pro({
+  subsets: ["latin"],
+  variable: "--font-source-code-pro",
+});
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -26,9 +37,26 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={` ${inter.variable} ${geistSans.variable} ${geistMono.variable} ${source_code_pro.variable} font-sans antialiased relative`}
       >
-        {children}
+        <div className="fixed inset-0 -z-10">
+          <div className="absolute inset-0 bg-[url('/wavy-matte-background.png')] bg-cover bg-center bg-fixed" />
+          <div className="absolute inset-0 bg-black/75" />
+        </div>
+        <Providers
+          attribute="class"
+          defaultTheme="dark"
+          disableTransitionOnChange
+        >
+          <div className="flex min-h-screen">
+            <aside className="w-[60px] border-r-[0.5px] border-border bg-background/50 backdrop-blur flex pt-6 flex-col items-center">
+              {/* <HamburgerButton /> */}
+              <BackButton />
+            </aside>
+            <main className="flex-1 pt-6">{children}</main>
+          </div>
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );

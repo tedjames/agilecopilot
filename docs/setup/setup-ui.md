@@ -23,7 +23,7 @@ Make sure the user knows to run the following scripts:
 
 ```bash
 npx shadcn@latest init
-npx shadcn-ui@latest add
+npx shadcn@latest add --all
 ```
 
 ## Install Libraries
