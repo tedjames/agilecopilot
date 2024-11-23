@@ -7,8 +7,8 @@ import {
   WandSparklesIcon,
   Maximize2,
   XIcon,
+  SaveIcon,
   ZapIcon,
-  PlusIcon,
 } from "lucide-react";
 import { Button as CustomButton } from "@/components/button";
 import {
@@ -60,63 +60,79 @@ const FormSchema = z.object({
     .min(10, { message: "Description must be at least 10 characters." }),
   featureSpecs: z.string().optional(),
   storyBreakdown: z.string().optional(),
+  appId: z.string().uuid(),
 });
 
-export type TCreateFeatureFormData = z.infer<typeof FormSchema>;
+export type TEditFeatureFormData = z.infer<typeof FormSchema>;
 
-interface CreateFeatureFormProps {
-  appId: string;
-  onSubmit: (data: TCreateFeatureFormData) => void;
+interface EditFeatureFormProps {
+  featureId: string;
+  initialData: TEditFeatureFormData;
+  onSubmit: (data: TEditFeatureFormData) => void;
   onCancel: () => void;
+  appId: string;
 }
 
-export function CreateFeatureForm({
-  appId,
+export function EditFeatureForm({
+  featureId,
+  initialData,
   onSubmit,
   onCancel,
-}: CreateFeatureFormProps) {
+  appId,
+}: EditFeatureFormProps) {
   const [isLoading, setIsLoading] = useState(false);
 
-  const form = useForm<TCreateFeatureFormData>({
+  const form = useForm<TEditFeatureFormData>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      name: "",
-      status: "Refinement Needed",
-      featureType: "core",
-      shortDescription: "",
-      featureSpecs: "",
-      storyBreakdown: "",
-    },
+    defaultValues: initialData,
   });
 
-  const handleSubmit = async (data: TCreateFeatureFormData) => {
+  const handleSubmit = async (data: TEditFeatureFormData) => {
     setIsLoading(true);
     try {
-      const response = await fetch("/api/core/feature-details", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...data, appId }),
-      });
+      const sanitizedData = {
+        ...data,
+        appId,
+        featureSpecs: data.featureSpecs || "",
+        storyBreakdown: data.storyBreakdown || "",
+      };
+
+      const response = await fetch(
+        `/api/core/feature-details?featureId=${featureId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(sanitizedData),
+        }
+      );
 
       if (!response.ok) {
-        const result = await response.json();
-        throw new Error(result.error || "Failed to create feature");
+        const errorData = await response.json();
+        throw new Error(
+          errorData.message || errorData.error || "Failed to update feature"
+        );
       }
 
       const result = await response.json();
 
-      toast.success("Feature Created", {
-        description: `Successfully created ${result.data.name}!`,
+      if (!result.data) {
+        throw new Error("Invalid response from server");
+      }
+
+      toast.success("Feature Updated", {
+        description: `Successfully updated ${result.data.name}!`,
       });
-      onSubmit(data);
+      onSubmit(sanitizedData);
     } catch (error) {
       toast.error("Error", {
         description:
-          error instanceof Error ? error.message : "An error occurred",
+          error instanceof Error
+            ? error.message
+            : "Failed to update feature. Please try again.",
       });
-      console.error("ERROR:", error);
+      console.error("Feature update error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -344,12 +360,12 @@ export function CreateFeatureForm({
               isLoading ? (
                 <LoadingSpinner size={16} />
               ) : (
-                <PlusIcon className="text-white" />
+                <SaveIcon className="text-white" />
               )
             }
             type="submit"
-            label={isLoading ? "Creating..." : "Create Feature"}
-            className="bg-green-600 hover:bg-green-600"
+            label={isLoading ? "Saving..." : "Save Changes"}
+            className="bg-blue-600 hover:bg-blue-700"
             disabled={isLoading}
           />
         </div>

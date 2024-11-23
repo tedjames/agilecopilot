@@ -42,7 +42,7 @@ export function FeatureCard({
 
   return (
     <Link
-      href={`/tools/feature-planner/${id}`}
+      href={`/tools/feature-planner/stories/${id}`}
       className={`block ${disabled ? "pointer-events-none opacity-50" : ""}`}
     >
       <Card
