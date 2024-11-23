@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { Wand2, Pencil, Trash2 } from "lucide-react";
 
 type SettingsSection = "system" | "applications" | "features" | "user-stories" | "technical-specs";
 
@@ -51,11 +52,16 @@ function ApplicationsSection() {
       />
 
       <Card className="mt-6">
-        <CardHeader>
-          <CardTitle>Feature Breakdown</CardTitle>
-          <CardDescription>
-            Prompts for breaking down a set of features
-          </CardDescription>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <div>
+            <CardTitle>Feature Breakdown</CardTitle>
+            <CardDescription>
+              Prompts for breaking down a set of features
+            </CardDescription>
+          </div>
+          <Button variant="outline">
+            + New Application Type
+          </Button>
         </CardHeader>
         <CardContent className="space-y-6">
           <div>
@@ -66,13 +72,15 @@ function ApplicationsSection() {
             />
             <div className="mt-2 flex items-center gap-2">
               <Button variant="outline" size="sm">
+                <Wand2 className="mr-2 h-4 w-4" />
                 Optimize Prompt
               </Button>
               <Button variant="outline" size="sm">
+                <Pencil className="mr-2 h-4 w-4" />
                 Rename
               </Button>
               <Button variant="ghost" size="icon" className="h-8 w-8">
-                <span className="text-muted-foreground">0</span>
+                <Trash2 className="h-4 w-4 text-muted-foreground" />
               </Button>
             </div>
           </div>
@@ -85,20 +93,18 @@ function ApplicationsSection() {
             />
             <div className="mt-2 flex items-center gap-2">
               <Button variant="outline" size="sm">
+                <Wand2 className="mr-2 h-4 w-4" />
                 Optimize Prompt
               </Button>
               <Button variant="outline" size="sm">
+                <Pencil className="mr-2 h-4 w-4" />
                 Rename
               </Button>
               <Button variant="ghost" size="icon" className="h-8 w-8">
-                <span className="text-muted-foreground">0</span>
+                <Trash2 className="h-4 w-4 text-muted-foreground" />
               </Button>
             </div>
           </div>
-
-          <Button variant="outline" className="w-full">
-            + New Application Type
-          </Button>
         </CardContent>
       </Card>
 
@@ -118,8 +124,13 @@ function FeaturesSection() {
       />
 
       <Card className="mt-6">
-        <CardHeader>
-          <CardTitle>Feature Specifications</CardTitle>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <div>
+            <CardTitle>Feature Specifications</CardTitle>
+          </div>
+          <Button variant="outline">
+            + New Feature Type
+          </Button>
         </CardHeader>
         <CardContent className="space-y-6">
           <div>
@@ -134,13 +145,15 @@ function FeaturesSection() {
             />
             <div className="mt-2 flex items-center gap-2">
               <Button variant="outline" size="sm">
+                <Wand2 className="mr-2 h-4 w-4" />
                 Optimize Prompt
               </Button>
               <Button variant="outline" size="sm">
+                <Pencil className="mr-2 h-4 w-4" />
                 Rename
               </Button>
               <Button variant="ghost" size="icon" className="h-8 w-8">
-                <span className="text-muted-foreground">0</span>
+                <Trash2 className="h-4 w-4 text-muted-foreground" />
               </Button>
             </div>
           </div>
@@ -155,20 +168,18 @@ function FeaturesSection() {
             />
             <div className="mt-2 flex items-center gap-2">
               <Button variant="outline" size="sm">
+                <Wand2 className="mr-2 h-4 w-4" />
                 Optimize Prompt
               </Button>
               <Button variant="outline" size="sm">
+                <Pencil className="mr-2 h-4 w-4" />
                 Rename
               </Button>
               <Button variant="ghost" size="icon" className="h-8 w-8">
-                <span className="text-muted-foreground">0</span>
+                <Trash2 className="h-4 w-4 text-muted-foreground" />
               </Button>
             </div>
           </div>
-
-          <Button variant="outline" className="w-full">
-            + New Feature Type
-          </Button>
         </CardContent>
       </Card>
 
@@ -188,11 +199,16 @@ function UserStoriesSection() {
       />
 
       <Card className="mt-6">
-        <CardHeader>
-          <CardTitle>Story Generation</CardTitle>
-          <CardDescription>
-            Prompts for generating detailed user stories
-          </CardDescription>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <div>
+            <CardTitle>Story Generation</CardTitle>
+            <CardDescription>
+              Prompts for generating detailed user stories
+            </CardDescription>
+          </div>
+          <Button variant="outline">
+            + New Story Type
+          </Button>
         </CardHeader>
         <CardContent className="space-y-6">
           <div>
@@ -203,13 +219,15 @@ function UserStoriesSection() {
             />
             <div className="mt-2 flex items-center gap-2">
               <Button variant="outline" size="sm">
+                <Wand2 className="mr-2 h-4 w-4" />
                 Optimize Prompt
               </Button>
               <Button variant="outline" size="sm">
+                <Pencil className="mr-2 h-4 w-4" />
                 Rename
               </Button>
               <Button variant="ghost" size="icon" className="h-8 w-8">
-                <span className="text-muted-foreground">0</span>
+                <Trash2 className="h-4 w-4 text-muted-foreground" />
               </Button>
             </div>
           </div>
@@ -222,20 +240,18 @@ function UserStoriesSection() {
             />
             <div className="mt-2 flex items-center gap-2">
               <Button variant="outline" size="sm">
+                <Wand2 className="mr-2 h-4 w-4" />
                 Optimize Prompt
               </Button>
               <Button variant="outline" size="sm">
+                <Pencil className="mr-2 h-4 w-4" />
                 Rename
               </Button>
               <Button variant="ghost" size="icon" className="h-8 w-8">
-                <span className="text-muted-foreground">0</span>
+                <Trash2 className="h-4 w-4 text-muted-foreground" />
               </Button>
             </div>
           </div>
-
-          <Button variant="outline" className="w-full">
-            + New Story Type
-          </Button>
         </CardContent>
       </Card>
 
@@ -255,11 +271,16 @@ function TechnicalSpecsSection() {
       />
 
       <Card className="mt-6">
-        <CardHeader>
-          <CardTitle>Technical Requirements</CardTitle>
-          <CardDescription>
-            Prompts for generating detailed technical specifications
-          </CardDescription>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <div>
+            <CardTitle>Technical Requirements</CardTitle>
+            <CardDescription>
+              Prompts for generating detailed technical specifications
+            </CardDescription>
+          </div>
+          <Button variant="outline">
+            + New Spec Type
+          </Button>
         </CardHeader>
         <CardContent className="space-y-6">
           <div>
@@ -270,13 +291,15 @@ function TechnicalSpecsSection() {
             />
             <div className="mt-2 flex items-center gap-2">
               <Button variant="outline" size="sm">
+                <Wand2 className="mr-2 h-4 w-4" />
                 Optimize Prompt
               </Button>
               <Button variant="outline" size="sm">
+                <Pencil className="mr-2 h-4 w-4" />
                 Rename
               </Button>
               <Button variant="ghost" size="icon" className="h-8 w-8">
-                <span className="text-muted-foreground">0</span>
+                <Trash2 className="h-4 w-4 text-muted-foreground" />
               </Button>
             </div>
           </div>
@@ -289,20 +312,18 @@ function TechnicalSpecsSection() {
             />
             <div className="mt-2 flex items-center gap-2">
               <Button variant="outline" size="sm">
+                <Wand2 className="mr-2 h-4 w-4" />
                 Optimize Prompt
               </Button>
               <Button variant="outline" size="sm">
+                <Pencil className="mr-2 h-4 w-4" />
                 Rename
               </Button>
               <Button variant="ghost" size="icon" className="h-8 w-8">
-                <span className="text-muted-foreground">0</span>
+                <Trash2 className="h-4 w-4 text-muted-foreground" />
               </Button>
             </div>
           </div>
-
-          <Button variant="outline" className="w-full">
-            + New Spec Type
-          </Button>
         </CardContent>
       </Card>
 
@@ -329,25 +350,19 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        <div className="mb-4 px-2 text-sm font-semibold text-muted-foreground">
-          GENERAL
+        <div className="mb-4 mt-6 px-2 text-sm font-semibold text-muted-foreground">
+          PROMPTS
         </div>
         <div className="space-y-1">
-          <div 
+          <div
             className={cn(
-              "mb-4 px-2 py-2 cursor-pointer rounded-md",
+              "mb-2 px-2 py-2 cursor-pointer rounded-md",
               currentSection === "system" && "bg-muted"
             )}
             onClick={() => handleSectionClick("system")}
           >
             System
           </div>
-        </div>
-
-        <div className="mb-4 mt-6 px-2 text-sm font-semibold text-muted-foreground">
-          PROMPTS
-        </div>
-        <div className="space-y-1">
           <div 
             className={cn(
               "mb-2 px-2 py-2 cursor-pointer rounded-md",
