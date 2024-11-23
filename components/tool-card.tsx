@@ -18,7 +18,9 @@ export function ToolCard({
   return (
     <Link
       href={href}
-      className={`block ${disabled ? "pointer-events-none opacity-50" : ""}`}
+      className={`block ${
+        disabled ? "pointer-events-none opacity-50" : "cursor-pointer"
+      }`}
     >
       <Card className="group hover:opacity-90 border-2 border-sky-600/30 hover:border-sky-600/80 bg-black/50 rounded-2xl shadow-md transition-all">
         <CardHeader className="flex flex-row items-center justify-between gap-4">

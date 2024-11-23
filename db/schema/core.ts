@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   pgTable,
   text,
@@ -38,12 +39,25 @@ export const applications = pgTable("applications", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// Define relations for the applications table
+export const applicationsRelations = relations(applications, ({ one }) => ({
+  user: one(users, {
+    fields: [applications.userId],
+    references: [users.id],
+  }),
+}));
+
 // Features Table
 export const features = pgTable("features", {
   id: uuid("id").primaryKey().defaultRandom(),
   appId: uuid("app_id").references(() => applications.id, {
     onDelete: "cascade",
   }),
+  userId: uuid("user_id")
+    .references(() => users.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
   name: varchar("name", { length: 255 }).notNull(),
   status: varchar("status", { length: 50 }).default("Refinement Needed"),
   featureType: varchar("feature_type", { length: 50 }), // E.g., 'Frontend', 'Backend'
@@ -54,6 +68,18 @@ export const features = pgTable("features", {
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
+
+// Define relations for the features table
+export const featuresRelations = relations(features, ({ one }) => ({
+  app: one(applications, {
+    fields: [features.appId],
+    references: [applications.id],
+  }),
+  user: one(users, {
+    fields: [features.userId],
+    references: [users.id],
+  }),
+}));
 
 // User Stories Table
 export const userStories = pgTable("user_stories", {
@@ -72,6 +98,14 @@ export const userStories = pgTable("user_stories", {
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
+
+// Define relations for the userStories table
+export const userStoriesRelations = relations(userStories, ({ one }) => ({
+  feature: one(features, {
+    fields: [userStories.featureId],
+    references: [features.id],
+  }),
+}));
 
 // Prompts Table
 export const prompts = pgTable("prompts", {
@@ -138,3 +172,24 @@ export type SelectTokenTransaction = typeof tokenTransactions.$inferSelect;
 
 export type InsertActionsLog = typeof actionsLog.$inferInsert;
 export type SelectActionsLog = typeof actionsLog.$inferSelect;
+
+// export const schema = {
+//   users,
+//   applications,
+//   features,
+//   userStories,
+//   prompts,
+//   plans,
+//   tokenTransactions,
+//   actionsLog,
+// };
+
+// export type Schema = typeof schema;
+
+// export const relationships = {
+//   applicationsRelations,
+//   featuresRelations,
+//   userStoriesRelations,
+// };
+
+// export type Relationships = typeof relationships;

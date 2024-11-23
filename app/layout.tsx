@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import { Inter, Source_Code_Pro } from "next/font/google";
 
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "sonner";
 import { Providers } from "@/components/utilities/providers";
 import { HamburgerButton } from "@/components/hamburger-button";
 import { BackButton } from "@/components/nav-back-button";
@@ -35,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={` ${inter.variable} ${geistSans.variable} ${geistMono.variable} ${source_code_pro.variable} font-sans antialiased relative`}
       >
@@ -50,12 +50,11 @@ export default function RootLayout({
         >
           <div className="flex min-h-screen">
             <aside className="w-[60px] border-r-[0.5px] border-border bg-background/50 backdrop-blur flex pt-6 flex-col items-center">
-              {/* <HamburgerButton /> */}
               <BackButton />
             </aside>
             <main className="flex-1 pt-6">{children}</main>
           </div>
-          <Toaster />
+          <Toaster richColors position="bottom-right" theme="dark" />
         </Providers>
       </body>
     </html>

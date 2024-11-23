@@ -46,13 +46,15 @@ export function AppCard({
       className={`block ${disabled ? "pointer-events-none opacity-50" : ""}`}
     >
       <Card
-        className={`group space-y-2 justify-between flex py-6 hover:opacity-90 border-2 ${statusStyles.border} bg-black/50 rounded-2xl shadow-md transition-all h-48 px-7`}
+        className={`group space-y-2 justify-between flex py-6 hover:opacity-90 border-2 ${statusStyles.border} bg-black/50 rounded-2xl shadow-md transition-all h-52 px-7`}
       >
-        <div className="flex flex-col justify-between gap-4 w-64">
+        <div className="flex flex-col justify-between gap-4 w-96">
           <div>
             <h3 className="font-semibold text-lg">{title}</h3>
             <CardDescription className="opacity-70 h-10">
-              {description}
+              {description.length > 100
+                ? `${description.slice(0, 100)}...`
+                : description}
             </CardDescription>
           </div>
           <div className="flex items-start flex-col gap-2">
@@ -62,7 +64,7 @@ export function AppCard({
             </div>
 
             <p
-              className={` opacity-90 group-hover:opacity-100 text-xs font-mono mt-2 uppercase tracking-wider ${statusStyles.text} transition-opacity`}
+              className={`opacity-90 group-hover:opacity-100 text-xs font-mono mt-2 uppercase tracking-wider ${statusStyles.text} transition-opacity`}
             >
               {status}
             </p>

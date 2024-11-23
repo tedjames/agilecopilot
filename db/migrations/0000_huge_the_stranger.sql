@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS "applications" (
 CREATE TABLE IF NOT EXISTS "features" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"app_id" uuid,
+	"user_id" uuid NOT NULL,
 	"name" varchar(255) NOT NULL,
 	"status" varchar(50) DEFAULT 'Refinement Needed',
 	"feature_type" varchar(50),
@@ -108,6 +109,12 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "features" ADD CONSTRAINT "features_app_id_applications_id_fk" FOREIGN KEY ("app_id") REFERENCES "public"."applications"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "features" ADD CONSTRAINT "features_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

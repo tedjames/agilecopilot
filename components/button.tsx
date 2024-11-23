@@ -3,7 +3,7 @@ import { Button as ShadcnButton } from "@/components/ui/button";
 import { VariantProps, cva } from "class-variance-authority";
 import { ButtonHTMLAttributes, forwardRef } from "react";
 
-const buttonVariants = cva("rounded-2xl py-6 px-8 transition-colors", {
+const buttonVariants = cva("rounded-2xl transition-colors", {
   variants: {
     variant: {
       primary:
@@ -13,9 +13,14 @@ const buttonVariants = cva("rounded-2xl py-6 px-8 transition-colors", {
       destructive:
         "bg-red-600 text-white hover:bg-red-600/80 border-[0.5px] border-red-200",
     },
+    size: {
+      small: "py-2 h-7 px-4 rounded-full",
+      large: "py-6 px-8",
+    },
   },
   defaultVariants: {
     variant: "primary",
+    size: "large",
   },
 });
 
@@ -27,23 +32,37 @@ interface ButtonProps
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, label, icon, ...props }, ref) => {
+  ({ className, variant, size, label, icon, ...props }, ref) => {
     return (
       <ShadcnButton
-        className={cn(buttonVariants({ variant, className }))}
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          "flex items-center justify-center cursor-pointer"
+        )}
         ref={ref}
         {...props}
       >
         {icon && (
           <span
-            className={`w-4 h-4 ${
-              variant === "destructive" ? "text-white" : "text-zinc-500"
-            }`}
+            className={cn(
+              `${variant === "destructive" ? "text-white" : "text-zinc-500"}`,
+              "flex items-center justify-center",
+              size === "small" ? "w-3 h-3 [&>*]:!w-3 [&>*]:!h-3" : "w-4 h-4"
+            )}
           >
             {icon}
           </span>
         )}
-        {label && <span className="text-white ml-2">{label}</span>}
+        {label && (
+          <span
+            className={cn(
+              "text-white",
+              size === "small" ? "text-xs ml-0" : "ml-2"
+            )}
+          >
+            {label}
+          </span>
+        )}
       </ShadcnButton>
     );
   }
