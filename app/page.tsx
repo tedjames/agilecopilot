@@ -1,14 +1,24 @@
 import { PageHeader } from "@/components/page-header";
 import { ToolCard } from "@/components/tool-card";
+import { Button } from "@/components/ui/button";
+import { Settings } from "lucide-react";
+import Link from "next/link";
 
 export default function FeaturePlanning() {
   return (
     <main className="container mx-auto p-6">
-      <PageHeader
-        title="AgileCopilot"
-        description="A collection of tools to help you plan, research and build your app"
-        hidePrefix
-      />
+      <div className="flex justify-between items-center">
+        <PageHeader
+          title="AgileCopilot"
+          description="A collection of tools to help you plan, research and build your app"
+          hidePrefix
+        />
+        <Link href="/settings">
+          <Button variant="ghost" size="icon">
+            <Settings className="h-5 w-5" />
+          </Button>
+        </Link>
+      </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <ToolCard
@@ -22,7 +32,6 @@ export default function FeaturePlanning() {
           href="/tools/market-research"
           disabled
         />
-        {/* Add more cards as needed */}
       </div>
     </main>
   );
