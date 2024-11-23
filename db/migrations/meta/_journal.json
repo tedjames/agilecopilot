@@ -8,6 +8,13 @@
       "when": 1730745297187,
       "tag": "0000_huge_the_stranger",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1732402053351,
+      "tag": "0001_fresh_squadron_supreme",
+      "breakpoints": true
     }
   ]
 }

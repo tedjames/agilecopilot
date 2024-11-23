@@ -97,6 +97,8 @@ export const userStories = pgTable("user_stories", {
   images: jsonb("images"), // Array of image URLs
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
+  techSpecType: varchar("tech_spec_type", { length: 50 }),
+  storyType: varchar("story_type", { length: 50 }),
 });
 
 // Define relations for the userStories table
